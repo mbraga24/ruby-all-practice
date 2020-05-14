@@ -10,6 +10,10 @@ class Song
     save
   end
 
+  def artist_name
+    self.artist.name
+  end
+
   def save
     @@all << self
   end
@@ -34,6 +38,8 @@ class Artist
   def songs
     Song.all.select do |song|
       song.artist == self
+      # Validate artist_name instance method
+      # song.artist_name
     end
   end
 end
@@ -54,4 +60,5 @@ theWeeknd.add_song_by_name("Snowchild", "Pop Music")
 theWeeknd.songs.each do |song|
   p song.name
 end
+
 # binding.pry
