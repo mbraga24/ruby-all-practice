@@ -24,14 +24,9 @@ class Artist
 
   def initialize(name)
     @name = name
-    @songs = []
   end
-  # Two sources of truth. One does not know about another.
-  # If we do not use this method and decide to make the associations
-  # manually further down the line in the program we might end up 
-  # with one object not aware of the other. 
+
   def add_song(song)
-    @songs << song
     song.artist = self
   end
 
@@ -50,7 +45,7 @@ theWeeknd = Artist.new("The Weeknd")
 
 # ===========================================================
 # Call add_song method with an argument of a real song object.
-# Making the associations between artists and their many songs.
+# Making the associations between an artist and his/her songs.
 # -----------------------------------------------------------
 blinded = Song.new("Blinded By The Lights", "Pop Music")
 tooLate = Song.new("Too Late", "Alternative R&B")
@@ -58,18 +53,15 @@ tooLate = Song.new("Too Late", "Alternative R&B")
 theWeeknd.add_song(blinded)
 theWeeknd.add_song(tooLate)
 
-# ========================================================
-# Collect all the genre.
-# --------------------------------------------------------
-all_genre = theWeeknd.songs.collect do |song|
-  song.genre
-end
-# p all_genre
+# ============================================================
+# Making more associations between an artist and his/her songs
+# ------------------------------------------------------------
 
-# ========================================================
-# Checking the associations between songs and its artist.
-# --------------------------------------------------------
-p blinded.artist.name
-p tooLate.artist.name
+heartless = Song.new("Heartless", "Pop Music")
+snowchild = Song.new("Snowchild", "Pop Music")
 
+snowchild.artist = theWeeknd
+heartless.artist = theWeeknd
+
+p theWeeknd.songs
 # binding.pry
