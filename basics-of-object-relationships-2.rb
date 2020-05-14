@@ -1,13 +1,6 @@
+require "pry"
 class Song
-  attr_accessor :title, :artist
-
-  def initialize(title)
-    @title = title
-  end
-end
-
-class Artist
-  attr_accessor :name, :genre
+  attr_accessor :artist, :name, :genre
 
   def initialize(name, genre)
     @name = name
@@ -15,10 +8,17 @@ class Artist
   end
 end
 
-artist = Artist.new("The Weeknd", "R&B/Soul")
-track_1 = Song.new("Blinded By The Lights")
-p track_1.title
+class Artist 
+  attr_accessor :name
 
-track_1.artist = artist
-p track_1.artist.name
-p track_1.artist.genre
+  def initialize(name)
+    @name = name
+  end
+end
+
+artist_1 = Artist.new("The Weeknd")
+track_1 = Song.new("Blinded By The Lights", "Pop Music")
+p track_1.name
+p track_1.genre
+track_1.artist = artist_1
+binding.pry
