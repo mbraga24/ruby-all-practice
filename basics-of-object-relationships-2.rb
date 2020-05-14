@@ -26,7 +26,8 @@ class Artist
     @name = name
   end
 
-  def add_song(song)
+  def add_song_by_name(name, genre)
+    song = Song.new(name, genre)
     song.artist = self
   end
 
@@ -37,31 +38,20 @@ class Artist
   end
 end
 
-# "Too late"
-# "Heartless"
-# "Snowchild"
+# ===========================================================
+# Call add_song_by_name method with name and genre arguments 
+# to create a real song object.
+# Making the associations between an artist and his/her songs.
+# -----------------------------------------------------------
 
 theWeeknd = Artist.new("The Weeknd")
 
-# ===========================================================
-# Call add_song method with an argument of a real song object.
-# Making the associations between an artist and his/her songs.
-# -----------------------------------------------------------
-blinded = Song.new("Blinded By The Lights", "Pop Music")
-tooLate = Song.new("Too Late", "Alternative R&B")
+theWeeknd.add_song_by_name("Blinded By The Lights", "Pop Music")
+theWeeknd.add_song_by_name("Too Late", "Alternative R&B")
+theWeeknd.add_song_by_name("Heartless", "Pop Music")
+theWeeknd.add_song_by_name("Snowchild", "Pop Music")
 
-theWeeknd.add_song(blinded)
-theWeeknd.add_song(tooLate)
-
-# ============================================================
-# Making more associations between an artist and his/her songs
-# ------------------------------------------------------------
-
-heartless = Song.new("Heartless", "Pop Music")
-snowchild = Song.new("Snowchild", "Pop Music")
-
-snowchild.artist = theWeeknd
-heartless.artist = theWeeknd
-
-p theWeeknd.songs
+theWeeknd.songs.each do |song|
+  p song.name
+end
 # binding.pry
