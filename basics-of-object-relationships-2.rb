@@ -1,10 +1,21 @@
 require "pry"
 class Song
   attr_accessor :artist, :name, :genre
+  @@all = []
 
   def initialize(name, genre)
     @name = name
     @genre = genre
+
+    save
+  end
+
+  def save
+    @@all << self
+  end
+
+  def self.all
+    @@all
   end
 end
 
@@ -15,14 +26,19 @@ class Artist
     @name = name
     @songs = []
   end
-
+  # Two sources of truth. One does not know about another.
+  # If we do not use this method and decide to make the associations
+  # manually further down the line in the program we might end up 
+  # with one object not aware of the other. 
   def add_song(song)
     @songs << song
     song.artist = self
   end
 
   def songs
-    @songs
+    Song.all.select do |song|
+      song.artist == self
+    end
   end
 end
 
