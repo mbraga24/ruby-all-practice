@@ -17,7 +17,8 @@ class Artist
   end
 
   def add_song(song)
-    @songs.push(song)
+    @songs << song
+    song.artist = self
   end
 
   def songs
@@ -32,7 +33,8 @@ end
 theWeeknd = Artist.new("The Weeknd")
 
 # ===========================================================
-# Call add_song method with an argument of a real song object:
+# Call add_song method with an argument of a real song object.
+# Making the associations between artists and their many songs.
 # -----------------------------------------------------------
 blinded = Song.new("Blinded By The Lights", "Pop Music")
 tooLate = Song.new("Too Late", "Alternative R&B")
@@ -43,9 +45,15 @@ theWeeknd.add_song(tooLate)
 # ========================================================
 # Collect all the genre.
 # --------------------------------------------------------
-all_genres = theWeeknd.songs.collect do |song|
+all_genre = theWeeknd.songs.collect do |song|
   song.genre
 end
-# p all_genres
+# p all_genre
+
+# ========================================================
+# Checking the associations between songs and its artist.
+# --------------------------------------------------------
+p blinded.artist.name
+p tooLate.artist.name
 
 # binding.pry
