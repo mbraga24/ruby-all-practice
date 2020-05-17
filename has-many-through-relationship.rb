@@ -18,6 +18,13 @@ class Waiter
     Meal.all.select { |meal| meal.waiter == self }
   end
 
+  def best_tipper
+    best_tipped_meal = self.meals.max do |meal_a, meal_b|
+      meal_a.tip <=> meal_b.tip
+    end
+    best_tipped_meal.customer
+  end
+
   def self.all
     @@waiters
   end
@@ -119,4 +126,7 @@ puts "======================"
 p lauro.meals
 puts ""
 p renan.meals
-
+puts "======================"
+puts "  Waiter.best_tipper"
+puts "======================"
+p lauro.best_tipper
