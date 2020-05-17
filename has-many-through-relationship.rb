@@ -41,10 +41,22 @@ class Waiter
     self.all.each do |waiter|
       if waiter.yrs_experience > yrs_exp
         yrs_exp = waiter.yrs_experience
-        oldest_waiter = waiter.name
+        oldest_waiter = waiter
       end
     end
     oldest_waiter
+  end
+
+  def self.average_tip_of_experience_waiter
+    total_tip = 0
+    tip_count = 0
+    Meal.all.each do |meal|
+      if meal.waiter == self.oldest_waiter
+        tip_count += 1
+        total_tip += meal.tip
+      end 
+    end
+    (total_tip.to_f / tip_count)
   end
 end
 
@@ -152,3 +164,7 @@ puts "======================"
 puts "Waiter.oldest_waiter"
 puts "======================"
 p Waiter.oldest_waiter
+puts "======================"
+puts "Waiter.average_tip_experience_waiter"
+puts "======================"
+p Waiter.average_tip_experience_waiter
