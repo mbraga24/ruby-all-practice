@@ -1,16 +1,22 @@
 class Waiter 
   attr_accessor :name, :yrs_experience
-  @@waiters = []
+  @@all = []
 
   def initialize(name, yrs_experience) 
     @name = name
     @yrs_experience = yrs_experience
 
-    @@waiters << self
+    @@all << self
   end
 
   # (customer, waiter, meal, tip=0)
   def new_meal(customer, meal, tip)
+    Meal.new(customer, self, meal, tip)
+  end
+
+  # (customer, waiter, meal, tip=0)
+  def new_meal_tip_suggestion(customer, total)
+    tip = total * 0.2
     Meal.new(customer, self, meal, tip)
   end
 
@@ -26,7 +32,19 @@ class Waiter
   end
 
   def self.all
-    @@waiters
+    @@all
+  end
+
+  def self.oldest_waiter
+    yrs_exp = 0
+    oldest_waiter = nil
+    self.all.each do |waiter|
+      if waiter.yrs_experience > yrs_exp
+        yrs_exp = waiter.yrs_experience
+        oldest_waiter = waiter.name
+      end
+    end
+    oldest_waiter
   end
 end
 
@@ -104,7 +122,7 @@ puts "Meal.all.length"
 puts "======================"
 p Meal.all.length
 puts "======================"
-puts "  Customer.meals"
+puts "  Customer#meals"
 puts "======================"
  alexandra.meals
 puts ""
@@ -112,21 +130,25 @@ puts ""
 puts ""
  marlon.meals
 puts "======================"
-puts "  Customer.waiter"
+puts "  Customer#waiter"
 puts "======================"
 p marlon.waiters
 puts "======================"
-puts "Customer.last_waiter"
+puts "Customer#last_waiter"
 puts "======================"
 p marlon.last_waiter
 puts "======================"
 puts "======================"
-puts "    Waiter.meals"
+puts "    Waiter#meals"
 puts "======================"
 p lauro.meals
 puts ""
 p renan.meals
 puts "======================"
-puts "  Waiter.best_tipper"
+puts "  Waiter#best_tipper"
 puts "======================"
 p lauro.best_tipper
+puts "======================"
+puts "Waiter.oldest_waiter"
+puts "======================"
+p Waiter.oldest_waiter
