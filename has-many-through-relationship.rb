@@ -39,6 +39,10 @@ class Customer
     Meal.all.select { |meal| meal.customer == self }
   end
 
+  def waiter
+    self.meals.map { |meal| meal.waiter }.uniq
+  end
+
   def self.all
     @@customers 
   end
@@ -78,11 +82,20 @@ marcelo.new_meal(parafina, 100, 40)
 lauro.new_meal(alexandra, 300, 100) 
 lauro.new_meal(marlon, 30, 5)  
 parafina.new_meal(marcelo, 15, 3) 
-
-p alexandra.meals
-puts ""
-p marcelo.meals
-puts ""
-p marlon.meals
+puts "==========="
+puts "Meal.all.length"
 puts "==========="
 p Meal.all.length
+puts "==========="
+puts "  meals"
+puts "==========="
+ alexandra.meals
+puts ""
+ marcelo.meals
+puts ""
+ marlon.meals
+puts "==========="
+puts "  waiter"
+puts "==========="
+p marlon.waiter
+
